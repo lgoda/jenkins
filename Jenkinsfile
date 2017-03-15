@@ -4,8 +4,7 @@ pipeline {
     stages {
         stage('Preconditions') {
             steps {
-		step
-                echo 'Building..',
+                echo 'Building..'
 		build './TEST_AUTOMATION_ASTF'
             }
         }
