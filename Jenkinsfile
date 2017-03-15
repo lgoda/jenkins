@@ -4,9 +4,9 @@ pipeline {
     stages {
         stage('Preconditions') {
             steps {
+		step
                 echo 'Building..',
-		build job: './TEST_AUTOMATION_ASTF', 
-		parameters: [string(name: 'testsystem', value: '01'), [$class: 'ExtendedChoiceParameterValue', name: 'website', value: 'Partner_01'], [$class: 'ExtendedChoiceParameterValue', name:'phase', value: '00_Preconditions']]
+		build './TEST_AUTOMATION_ASTF'
             }
         }
         stage('Phase 1 - Purchases') {
