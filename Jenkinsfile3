@@ -1,4 +1,7 @@
 pipeline {
+  environment {
+    result = "SUCCESS"
+  }
     agent any
 
     stages {
@@ -6,7 +9,7 @@ pipeline {
             steps {
 	       echo 'Executing Preconditions....'
                script {
-                 def result = 'SUCCESS'
+                 //def result = 'SUCCESS'
                  try {
                    def step1 = build job: 'TEST_AUTOMATION_ASTF', parameters: [string(name: 'testsystem', value: '01'), [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'website', value: 'Partner_01'], [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'phase', value: '00_Preconditions']], propagate:false
                    result = step1.result
