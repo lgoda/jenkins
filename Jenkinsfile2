@@ -10,7 +10,7 @@ pipeline {
             post {
                  always {
                      echo 'always 1'
-                     currentBuild.result = 'FAILURE'
+                     ${currentBuild.result = 'FAILURE'}
                  }
                  success {
                     echo 'success 1'
