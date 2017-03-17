@@ -12,16 +12,16 @@ pipeline {
                      echo 'always 1'
                  }
                  success {
-
+                    echo 'success 1'
                  }
                  failure {
-
+                    echo 'failure 1'
                  }
                  unstable {
-
+                    echo 'unstable 1'
                  }
                  changed {
-
+                    echo 'changed 1'
                  }
              }
          }
@@ -29,23 +29,23 @@ pipeline {
 
         stage('Phase 2 - Prize Processing') {
             steps {
-
+              echo 'Executing Prize processing....'
             }
             post {
                  always {
                      echo 'always 2'
                  }
                  success {
-
+                    echo 'success 2'
                  }
                  failure {
-
+                      echo 'failure 2'
                  }
                  unstable {
-
+                        echo 'unstable 2'
                  }
                  changed {
-
+                        echo 'changed 2'
                  }
              }
          }
@@ -56,16 +56,16 @@ pipeline {
             echo 'always 3'
         }
         success {
-
+              echo 'success 3'
         }
         failure {
-
+            echo 'failure 3'
         }
         unstable {
-
+              echo 'unstable 3'
         }
         changed {
-
+              echo 'changed 3'
         }
     }
 }
