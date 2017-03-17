@@ -13,7 +13,7 @@ pipeline {
                  try {
                    def step1 = build job: 'TEST_AUTOMATION_ASTF', parameters: [string(name: 'testsystem', value: '01'), [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'website', value: 'Partner_01'], [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'phase', value: '00_Preconditions']], propagate:false
                    result = step1.result
-                   if (result.equals("SUCCESS") /*|| result.equals("UNSTABLE")*/) {
+                   if (result.equals("SUCCESS") || result.equals("UNSTABLE")) {
                      /*echo 'Set status to SUCCESS'
                      currentBuild.result = 'SUCCESS'*/
                      result = 'SUCCESS'
@@ -46,7 +46,6 @@ pipeline {
                     }
                   } else {
                       echo "Cannot execute Phase 1 without Successfull Preconditions..."
-                      sh "exit 1"
                   }
               }
             }
@@ -69,7 +68,6 @@ pipeline {
                     }
                   } else {
                      echo "Cannot execute Phase 2 without executing phase 1 ..."
-                     sh "exit 1"
                   }
                 }
             }
