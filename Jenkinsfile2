@@ -4,8 +4,15 @@ pipeline {
     stages {
         stage('Preconditions') {
             steps {
-	             echo 'Executing Preconditions....'
 
+               try {
+                 // do something that fails
+                 //sh "exit 1"
+                   echo 'Executing Preconditions....'
+                   currentBuild.result = 'SUCCESS'
+               } catch (Exception err) {
+                   currentBuild.result = 'FAILURE'
+               }
             }
             post {
                  always {
@@ -53,7 +60,7 @@ pipeline {
 
    post {
         always {
-      
+
           echo "RESULT: ${currentBuild.result}"
         }
         success {
