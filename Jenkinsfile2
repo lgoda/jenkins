@@ -11,7 +11,9 @@ pipeline {
                  always {
                     steps {
                      echo 'always 1'
-                     result: 'FAILURE'
+                     step {
+                      result: 'FAILURE'
+                     }
                      }
                  }
                  success {
