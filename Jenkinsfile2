@@ -54,6 +54,7 @@ pipeline {
    post {
         always {
             echo 'always 3'
+            currentBuild.result = 'SUCCESS'
         }
         success {
               echo 'success 3'
