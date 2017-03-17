@@ -1,0 +1,71 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Preconditions') {
+            steps {
+	             echo 'Executing Preconditions....'
+
+            }
+            post {
+                 always {
+                     echo 'always 1'
+                 }
+                 success {
+
+                 }
+                 failure {
+
+                 }
+                 unstable {
+
+                 }
+                 changed {
+
+                 }
+             }
+         }
+
+
+        stage('Phase 2 - Prize Processing') {
+            steps {
+
+            }
+            post {
+                 always {
+                     echo 'always 2'
+                 }
+                 success {
+
+                 }
+                 failure {
+
+                 }
+                 unstable {
+
+                 }
+                 changed {
+
+                 }
+             }
+         }
+        }
+
+   post {
+        always {
+            echo 'always 3'
+        }
+        success {
+
+        }
+        failure {
+
+        }
+        unstable {
+
+        }
+        changed {
+
+        }
+    }
+}
