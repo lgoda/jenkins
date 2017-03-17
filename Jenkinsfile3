@@ -22,6 +22,7 @@ pipeline {
                    }
                  } catch(e) {
                     result = "FAILURE"
+                    sh "exit 1"
                  }
                }
             }
@@ -41,9 +42,11 @@ pipeline {
                       }
                     } catch(e) {
                        result = "FAILURE"
+                       sh "exit 1"
                     }
                   } else {
                       echo "Cannot execute Phase 1 without Successfull Preconditions..."
+                      sh "exit 1"
                   }
               }
             }
@@ -62,9 +65,11 @@ pipeline {
                       }
                     } catch(e) {
                       result = "FAILURE"
+                      sh "exit 1"
                     }
                   } else {
                      echo "Cannot execute Phase 2 without executing phase 1 ..."
+                     sh "exit 1"
                   }
                 }
             }
