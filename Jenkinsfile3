@@ -1,0 +1,71 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Preconditions') {
+            steps {
+	       echo 'Executing Preconditions....'
+               script {
+                 def result = 'SUCCESS'
+                 try {
+                   def step1 = build job: 'TEST_AUTOMATION_ASTF', parameters: [string(name: 'testsystem', value: '01'), [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'website', value: 'Partner_01'], [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'phase', value: '00_Preconditions']], propagate:false
+                   result = step1.result
+                   if (result.equals("SUCCESS") /*|| result.equals("UNSTABLE")*/) {
+                     /*echo 'Set status to SUCCESS'
+                     currentBuild.result = 'SUCCESS'*/
+                     result = 'SUCCESS'
+                   } else {
+                      sh "exit 1"
+                   }
+                 } catch(e) {
+                    result = "FAILURE"
+                 }
+               }
+            }
+        }
+        stage('Phase 1 - Purchases') {
+            steps {
+                echo 'Executing Phase 1, Purchases'
+                script {
+                  if (result.equals("SUCCESS")) {
+                    try {
+      		            def step2 = build job: 'TEST_AUTOMATION_ASTF', parameters: [string(name: 'testsystem', value: '01'), [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'website', value: 'Partner_01'], [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'phase', value: '01_Phase_1']],  propagate:false
+                      result = step2.result
+                      if (result.equals("SUCCESS") || result.equals("UNSTABLE")) {
+                        //currentBuild.result = 'SUCCESS'
+                      } else {
+                        sh "exit 1"
+                      }
+                    } catch(e) {
+                       result = "FAILURE"
+                    }
+                  } else {
+                      echo "Cannot execute Phase 1 without Successfull Preconditions..."
+                  }
+              }
+            }
+        }
+        stage('Phase 2 - Prize Processing') {
+            steps {
+                script {
+                  if (result.equals("SUCCESS")) {
+                    try {
+                      def step3 = build job: 'TEST_AUTOMATION_ASTF', parameters: [string(name: 'testsystem', value: '01'), [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'website', value: 'Partner_01'], [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'phase', value: '02_Phase_2']], propagate:false
+                      def result = step3.result
+                      if (result.equals("SUCCESS") || result.equals("UNSTABLE")) {
+                        result = 'SUCCESS'
+                      } else {
+                        sh "exit 1"
+                      }
+                    } catch(e) {
+                      result = "FAILURE"
+                    }
+                  } else {
+                     echo "Cannot execute Phase 2 without executing phase 1 ..."
+                  }
+                }
+            }
+        }
+    }
+
+}
