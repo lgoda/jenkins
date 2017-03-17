@@ -8,7 +8,7 @@ pipeline {
                script {
                  def step1 = build job: 'TEST_AUTOMATION_ASTF', parameters: [string(name: 'testsystem', value: '01'), [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'website', value: 'Partner_01'], [$class: 'com.moded.extendedchoiceparameter.ExtendedChoiceParameterValue', name: 'phase', value: '00_Preconditions']], propagate:false
                  def result = step1.result
-                 if (result.equals("SUCCESS") || result.equals("UNSTABLE")) {
+                 if (result.equals("SUCCESS") /*|| result.equals("UNSTABLE")*/) {
                    echo 'Set status to SUCCESS'
                    currentBuild.result = 'SUCCESS'
                  } else {
