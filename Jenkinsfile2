@@ -9,8 +9,10 @@ pipeline {
             }
             post {
                  always {
+                    steps {
                      echo 'always 1'
                      result: 'FAILURE'
+                     }
                  }
                  success {
                     echo 'success 1'
