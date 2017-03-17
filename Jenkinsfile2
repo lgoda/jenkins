@@ -6,8 +6,10 @@ pipeline {
             steps {
                 echo 'Executing Preconditions....'
                 echo "RESULT***: ${currentBuild.result}"
-                def result = 'FAILURE'
-                currentBuild.result = result
+                script {
+                  def result = 'FAILURE'
+                  currentBuild.result = result
+                }
             }
             post {
                  always {
